@@ -60,6 +60,11 @@ static int rt_qspi_flash_init(void)
 {
     extern rt_spi_flash_device_t rt_sfud_flash_probe(const char *spi_flash_dev_name, const char *spi_dev_name);
 
+    MX_QUADSPI_Init();
+
+    W25QXX_ExitQPIMode();
+    W25QXX_Reset();
+
     stm32_qspi_bus_attach_device("qspi1", "qspi10", RT_NULL, 4, w25qxx_enter_qspi_mode, RT_NULL);
     if (RT_NULL == rt_sfud_flash_probe("norflash0", "qspi10"))
     {
